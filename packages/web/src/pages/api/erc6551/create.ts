@@ -98,7 +98,7 @@ async function createAccount(req: NextApiRequest, res: NextApiResponse) {
         grouposConfig.tokenboundAccounts.proxyImplementation,
       ],
     });
-    console.log("new transaction", transactionHash);
+    console.log("gm new transaction", transactionHash);
 
     return res.status(200).json({
       success: true,
