@@ -112,7 +112,7 @@ export default createConfig({
               },
             ],
             description:
-              "earned at least 100 guild tokens and 100 byteinsight tokens, and maintained a monthly streak",
+              "earned at least 100 guild tokens and 50 byteinsight tokens, and maintained a monthly streak",
           },
         },
       },
