@@ -47,11 +47,11 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
               },
             })}
           >
-            <section className="flex justify-end p-2">
+            <section className="flex justify-end sm:p-1 md:p-2 lg:p-2">
               <ConnectKitButton theme="midnight" showBalance />
             </section>
-            <section className="flex flex-col items-center w-full min-h-screen p-16">
-              <section className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 items-center mb-8">
+            <section className="flex flex-col items-center w-full min-h-screen sm:p-8 md:p-12 lg:p-16">
+              <section className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 items-center sm:mb-2 md:mb-6 lg:mb-10">
                 <section>
                   <Image
                     priority={true}
@@ -62,7 +62,7 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
                     src={tokenContract?.image ?? emptyImage}
                   />
                 </section>
-                <section className="py-4 px-5 bg-highlightFaint text-sm rounded-lg h-fit w-full max-w-[500px] sm:w-[425px] sm:justify-self-end">
+                <section className="py-4 px-5 bg-highlightFaint text-sm rounded-lg h-fit w-full lg:w-[500px] sm:w-[350px] sm:justify-self-end">
                   <h2 className="mb-2 text-2xl">{name}</h2>
                   <div className="flex flex-row space-x-2 items-center mb-2">
                     <ContractLink contract={tokenContract} />
