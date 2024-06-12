@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useTokenContractName, useTokenContractRoute } from "../hooks";
 import { TokenStandardPill } from "../components/TokenStandardPill";
 import { Button } from "@/lib/components/ui/Button";
+import { BoxLink } from "../components/BoxLink";
 import { pages } from "../utils";
+import { Dune } from "../components/icons/Dune";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -76,25 +78,37 @@ const DefaultLayout = ({ children }: { children: any }) => {
                 <Link href="/">
                   <p>{name}</p>
                 </Link>
+                <BoxLink
+                  href="https://dune.com/cryptodatabytes/bytexplorers"
+                >
+                  <Dune className="h-5 w-5"/>
+                </BoxLink>
               </div>
               {/* right side */}
-              <div className="flex items-center space-x-4">
-                <Button variant="primary" onClick={() => window.open("/passport/mint", "_blank")}>
-                  Mint a BytePass
+              <div className="flex max-w-[700px] md:gap-1 flex-wrap">
+                <Button 
+                  className="md:px-2 md:py-1 md:text-md"
+                  variant="primary" 
+                  onClick={() => window.open("/passport/mint", "_blank")}
+                >
+                  Mint
                 </Button>
                 <Button
+                  className="md:px-2 md:py-1 md:text-md"
                   variant="primary"
                   onClick={() => window.open("https://read.cryptodatabytes.com/p/join-the-bytexplorers", "_blank")}
                 >
-                  Learn about Bytexplorers
+                  Learn
                 </Button>
-                <Button
+                {/* <Button
+                  className="md:px-2 md:py-1 md:text-md"
                   variant="primary"
                   onClick={() => window.open("https://dune.com/cryptodatabytes/bytexplorers", "_blank")}
                 >
                   Dune Dashboard
-                </Button>
-              {!!tokenContract && (
+                </Button> */}
+              </div>
+              {/* {!!tokenContract && (
                 <>
                   <p className="text-2xl font-thin text-highlight">/</p>
                   <Link href={pages.tokenDirectory(tokenContract)}>
@@ -106,8 +120,7 @@ const DefaultLayout = ({ children }: { children: any }) => {
                     </div>
                   </Link>
                 </>
-              )}
-              </div>
+              )} */}
             </div>
           </header>
         )}

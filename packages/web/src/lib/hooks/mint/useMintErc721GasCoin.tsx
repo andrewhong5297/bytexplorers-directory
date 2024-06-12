@@ -75,22 +75,6 @@ export const useMintErc721GasCoin = ({
     },
   });
 
-  // Read token supply
-  const { data: totalSupply } = useReadContract({
-    chainId: tokenContract?.chainId,
-    address: tokenContract?.contractAddress,
-    abi: erc721Abi,
-    functionName: "totalSupply",
-    query: {
-      enabled:
-        !!accountAddress && !!tokenContract?.contractAddress && !!unitPrice,
-    },
-  });
-
-  const nextTokenId = Number(totalSupply?.toString()) + 1;
-
-  console.log("next token id", nextTokenId);
-
   useEffect(() => {
     if (!feeReadError && stationFeeValue !== undefined && !!unitPrice) {
       setCallValue(stationFeeValue + unitPrice);
@@ -105,7 +89,7 @@ export const useMintErc721GasCoin = ({
 
   useEffect(() => {
     if (!!accountBalance && !!callValue && callValue >= accountBalance.value) {
-      setMessage("Insufficient balance for mint fee");
+      setMessage("Insufficient balance for the mint fee");
       setDisabled(true);
     } else {
       setMessage(undefined);
@@ -126,7 +110,6 @@ export const useMintErc721GasCoin = ({
       value: callValue,
       data: callData,
     },
-    nextTokenId,
     message,
     disabled,
   };

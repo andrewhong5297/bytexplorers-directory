@@ -11,6 +11,7 @@ import ConfigContext from "@/context/ConfigContext";
 import { NotFound } from "./404";
 import { ContractLink } from "../ContractLink";
 import TelegramButton from "../TelegramButton";
+import { Dune } from "../icons/Dune";
 
 export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
   const name = useTokenContractName(
@@ -79,10 +80,11 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
             </section>
             <section className="mb-8">
               <Button
-                  variant="primary"
+                  variant="secondary"
                   onClick={() => window.open("https://dune.com/cryptodatabytes/bytexplorers", "_blank")}
                 >
-                  Go to Dune Dashboard
+                  <Dune className="h-5 w-5"/>
+                  &nbsp;&nbsp;Go to Dashboard
               </Button>
             </section>
             <section className="w-[90%] mx-auto">

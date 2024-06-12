@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/Dialog";
 import Link from "next/link";
 import { getTransactionUrl } from "../utils";
 import { useTransactionWrapper } from "../hooks/useTransactionWrapper";
+import { Telegram } from "./icons/Telegram";
 
 const TelegramButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const [openSuccessDialog, setOpenSuccessDialog] = useState<boolean>(false);
@@ -24,7 +25,8 @@ const TelegramButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
           disabled={onePerAddressDisabled ? false : true}
           onClick={() => window.open("https://t.me/+sGhNuUX5krdhYjgx", "_blank")}
         >
-          {"Join Telegram Group"}
+          <Telegram className="h-5 w-5"/>
+          {"Join Group"}
         </Button>
       </div>
   );

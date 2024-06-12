@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSendTransaction } from "wagmi";
+import { useSendTransaction, useReadContract } from "wagmi";
 import { TokenConfig } from "../types";
 import { Button } from "./ui/Button";
 import { useMintErc721GasCoin } from "../hooks/mint/useMintErc721GasCoin";
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/Dialog";
 import Link from "next/link";
 import { getTransactionUrl } from "../utils";
 import { useTransactionWrapper } from "../hooks/useTransactionWrapper";
+import { erc721Abi } from "viem";
 
 const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const [openSuccessDialog, setOpenSuccessDialog] = useState<boolean>(false);
@@ -18,7 +19,6 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const {
     call,
     fees,
-    nextTokenId,
     message: mintMessage,
     disabled: mintDisabled,
   } = useMintErc721GasCoin({
@@ -31,14 +31,26 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
     onSuccess: () => setOpenSuccessDialog(true),
   });
 
+  const { data: totalSupply } = useReadContract({
+    chainId: tokenContract?.chainId,
+    address: tokenContract?.contractAddress,
+    abi: erc721Abi,
+    functionName: "totalSupply"
+  });
+
+  const nextTokenId = Number(totalSupply?.toString()) + 1;
+
   return (
     <Dialog open={openSuccessDialog} onOpenChange={setOpenSuccessDialog}>
       <div className="flex flex-col w-full gap-3">
-        <span className="text-lg mb-1 block">
+        <span className="text-lg block">
           {fees.map((fee) => fee.amount + " " + fee.currency).join(" + ")} 
         </span>
         <span className="text-md">
           {onePerAddressDisabled ? onePerAddressMessage : "BYTEPASS #" + nextTokenId}
+        </span>
+        <span className="text-md" style={{ color: "red" }}>
+          {mintDisabled ? mintMessage : null}
         </span>
         <Button
           size="lg"
@@ -67,7 +79,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
         </DialogHeader>
         <div className="text-secondary">
           {tokenContract?.mintPage?.successMessage ??
-            "You have successfully minted this NFT."}
+            "You have successfully minted your Bytepass NFT! Go ahead and join our telegram group to stay updated, and learn about our various quests."}
         </div>
         {!!tokenContract?.mintPage?.successAction ? (
           <div className="grid grid-cols-2 gap-2">
