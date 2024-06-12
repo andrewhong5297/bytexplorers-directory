@@ -10,8 +10,6 @@ import { useAccount, useBalance, useReadContract } from "wagmi";
 import { TokenConfig } from "@/lib/types";
 import { GasCoinPurchaseControllerAbi } from "@/lib/abi/GasCoinPurchaseController";
 import FeeManagerAbi from "@/lib/abi/FeeManager";
-import { Button } from "@/lib/components/ui/Button";
-import { erc721Abi } from "viem";
 
 export const useMintErc721GasCoin = ({
   tokenContract,
