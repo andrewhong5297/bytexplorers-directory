@@ -3,11 +3,14 @@ import Head from "next/head";
 import { useTokenContractName } from "@/lib/hooks";
 import { emptyImage } from "@/lib/constants";
 import MintButton from "../MintButton";
+import { Button } from "@/lib/components/ui/Button";
+
 import { TokenConfig } from "@/lib/types";
 import { useContext } from "react";
 import ConfigContext from "@/context/ConfigContext";
 import { NotFound } from "./404";
 import { ContractLink } from "../ContractLink";
+import TelegramButton from "../TelegramButton";
 
 export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
   const name = useTokenContractName(
@@ -33,15 +36,17 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
             <link rel="apple-touch-icon" href={logo} />
           </Head>
           <main
-            className="flex items-center justify-center w-full h-screen"
+            className="flex flex-col items-center w-full min-h-screen p-16"
             {...(tokenContract?.mintPage?.background && {
               style: {
                 backgroundImage: `url(${tokenContract?.mintPage?.background})`,
-                backgroundSize: "cover",
+                backgroundSize: "100% auto",
+                backgroundRepeat: "repeat-y",
+                minHeight: "100vh" // Ensure the main element is at least the height of the viewport
               },
             })}
           >
-            <section className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 items-center">
+            <section className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 items-center mb-8">
               <section>
                 <Image
                   priority={true}
@@ -54,13 +59,38 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
               </section>
               <section className="py-4 px-5 bg-highlightFaint text-sm rounded-lg h-fit w-full max-w-[500px] sm:w-[425px] sm:justify-self-end">
                 <h2 className="mb-2 text-2xl">{name}</h2>
-                <div className="flex flex-row space-x-2 items-center mb-8">
+                <div className="flex flex-row space-x-2 items-center mb-2">
                   <ContractLink contract={tokenContract} />
                 </div>
-                <div className="flex justify-center">
+                <div className="mb-2"> 
+                  {"Join hundreds of crypto data analysts, engineers, and scientists as we participate together in quests, building up onchain reputation through our multi-token reward system."}
+                </div>
+                <div className="mb-10"> 
+                  <a href="https://dune.com/cryptodatabytes/bytexplorers" target="_blank" style={{ color: '#DD4850', textDecoration: 'underline' }}>Read more about the community</a>
+                  , and mint your passport to get started. We're open to beginners and veterans.
+                </div>
+                <div className="flex justify-center mb-2">
                   <MintButton tokenContract={tokenContract} />
                 </div>
+                <div className="flex justify-center">
+                <TelegramButton tokenContract={tokenContract} />
+                </div>
               </section>
+            </section>
+            <section className="mb-8">
+              <Button
+                  variant="primary"
+                  onClick={() => window.open("https://dune.com/cryptodatabytes/bytexplorers", "_blank")}
+                >
+                  Go to Dune Dashboard
+              </Button>
+            </section>
+            <section className="w-[90%] mx-auto">
+              <iframe
+                className="w-full"
+                style={{ height: '100vh' }} // Set the iframe height to 100vh
+                src="https://dune.com/embeds/dashboard/cryptodatabytes/bytexplorers"
+              />
             </section>
           </main>
         </>

@@ -38,7 +38,7 @@ export function useOnePerAddress(tokenContract?: TokenConfig) {
         disabled: onePerAddressActive && !zeroBalance,
         message:
           onePerAddressActive && !zeroBalance
-            ? "One token per-address limit reached."
+            ? "You've already minted. Please join the telegram group."
             : null,
       };
 }

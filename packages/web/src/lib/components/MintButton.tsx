@@ -18,6 +18,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   const {
     call,
     fees,
+    nextTokenId,
     message: mintMessage,
     disabled: mintDisabled,
   } = useMintErc721GasCoin({
@@ -33,8 +34,11 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
   return (
     <Dialog open={openSuccessDialog} onOpenChange={setOpenSuccessDialog}>
       <div className="flex flex-col w-full gap-3">
-        <span className="text-lg mb-4 block">
-          {fees.map((fee) => fee.amount + " " + fee.currency).join(" + ")}
+        <span className="text-lg mb-1 block">
+          {fees.map((fee) => fee.amount + " " + fee.currency).join(" + ")} 
+        </span>
+        <span className="text-md">
+          {onePerAddressDisabled ? onePerAddressMessage : "BYTEPASS #" + nextTokenId}
         </span>
         <Button
           size="lg"
@@ -53,7 +57,6 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
         >
           {ctaOverride ?? tokenContract?.mintPage?.cta ?? "Mint"}
         </Button>
-        {onePerAddressMessage ?? mintMessage}
         {!!hash && (
           <TransactionLink chainId={tokenContract?.chainId} hash={hash} />
         )}

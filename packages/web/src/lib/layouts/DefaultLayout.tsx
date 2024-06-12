@@ -4,6 +4,7 @@ import ConfigContext from "../../context/ConfigContext";
 import Image from "next/image";
 import { useTokenContractName, useTokenContractRoute } from "../hooks";
 import { TokenStandardPill } from "../components/TokenStandardPill";
+import { Button } from "@/lib/components/ui/Button";
 import { pages } from "../utils";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -59,20 +60,40 @@ const DefaultLayout = ({ children }: { children: any }) => {
           router.pathname.includes(exclude)
         ) && (
           <header className="px-6 py-4">
-            <div className="flex flex-row space-x-4 items-center">
-              <Link href="/">
-                <Image
-                  src={logo}
-                  alt="logo"
-                  height={36}
-                  width={36}
-                  className="flex-shrink-0 rounded-md"
-                />
-              </Link>
-              <p className="text-2xl font-thin text-highlight">/</p>
-              <Link href="/">
-                <p>{name}</p>
-              </Link>
+            <div className="flex flex-row space-x-4 items-center justify-between">
+              {/* left side */}
+              <div className="flex items-center space-x-4">
+                <Link href="/">
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    height={36}
+                    width={36}
+                    className="flex-shrink-0 rounded-md"
+                  />
+                </Link>
+                <p className="text-2xl font-thin text-highlight">/</p>
+                <Link href="/">
+                  <p>{name}</p>
+                </Link>
+              </div>
+              {/* right side */}
+              <div className="flex items-center space-x-4">
+                <Button variant="primary" onClick={() => window.open("/passport/mint", "_blank")}>
+                  Mint a BytePass
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => window.open("https://read.cryptodatabytes.com/p/join-the-bytexplorers", "_blank")}
+                >
+                  Learn about Bytexplorers
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => window.open("https://dune.com/cryptodatabytes/bytexplorers", "_blank")}
+                >
+                  Dune Dashboard
+                </Button>
               {!!tokenContract && (
                 <>
                   <p className="text-2xl font-thin text-highlight">/</p>
@@ -86,6 +107,7 @@ const DefaultLayout = ({ children }: { children: any }) => {
                   </Link>
                 </>
               )}
+              </div>
             </div>
           </header>
         )}
