@@ -63,7 +63,7 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
                   <ContractLink contract={tokenContract} />
                 </div>
                 <div className="mb-2"> 
-                  {"Join hundreds of crypto data analysts, engineers, and scientists as we participate together in quests, building up onchain reputation through our multi-token reward system."}
+                  {"Join hundreds of crypto data analysts, engineers, and scientists in quests. You'll build up onchain reputation through our multi-token reward system."}
                 </div>
                 <div className="mb-10"> 
                   <a href="https://dune.com/cryptodatabytes/bytexplorers" target="_blank" style={{ color: '#DD4850', textDecoration: 'underline' }}>Read more about the community</a>
