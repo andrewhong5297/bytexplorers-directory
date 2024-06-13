@@ -47,7 +47,7 @@ const MintButton = ({ tokenContract }: { tokenContract?: TokenConfig }) => {
           {fees.map((fee) => fee.amount + " " + fee.currency).join(" + ")} 
         </span>
         <span className="text-md">
-          {onePerAddressDisabled ? onePerAddressMessage : "BYTEPASS #" + nextTokenId}
+          {onePerAddressDisabled ? onePerAddressMessage : "Next Mint: BYTEPASS #" + nextTokenId}
         </span>
         <span className="text-md" style={{ color: "red" }}>
           {mintDisabled ? mintMessage : null}
