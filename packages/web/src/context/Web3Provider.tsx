@@ -6,6 +6,7 @@ import { alchemyEndpointCore } from "@/lib/alchemy/hooks";
 import { defaultWalletConnectProjectId } from "@/lib/constants";
 import { useContext } from "react";
 import ConfigContext from "./ConfigContext";
+import {PrivyProvider} from '@privy-io/react-auth';
 
 const queryClient = new QueryClient();
 
@@ -47,7 +48,24 @@ export default function Web3Provider({ children }: { children: any }) {
             "--ck-focus-color": theme.colors.highlight,
           }}
         >
-          {children}
+          {/* it might not allow both connectkit and privy providers */}
+          <PrivyProvider
+            appId={process.env.PRIVY_APP_ID}
+            config={{
+              // Customize Privy's appearance in your app
+              appearance: {
+                theme: 'light',
+                accentColor: '#676FFF',
+                logo: 'https://your-logo-url',
+              },
+              // Create embedded wallets for users who don't have a wallet
+              embeddedWallets: {
+                createOnLogin: 'users-without-wallets',
+              },
+            }}
+          >
+            {children}
+          </PrivyProvider>
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
