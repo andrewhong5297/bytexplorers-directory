@@ -42,7 +42,7 @@ export default function Web3Provider({ children }: { children: any }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
           <PrivyProvider
-            appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? 'clxlu3b5m02rzy3kgvmcb4v71'}
+            appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? ""}
             config={{
               // Customize Privy's appearance in your app
               appearance: {
