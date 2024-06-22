@@ -4,7 +4,7 @@ import { useTokenContractName } from "@/lib/hooks";
 import { emptyImage } from "@/lib/constants";
 import MintButton from "../MintButton";
 import { Button } from "@/lib/components/ui/Button";
-import { ConnectKitButton } from "connectkit";
+// import { ConnectKitButton } from "connectkit";
 
 import { TokenConfig } from "@/lib/types";
 import { useContext } from "react";
@@ -47,9 +47,9 @@ export function Erc721Mint({ tokenContract }: { tokenContract?: TokenConfig }) {
               },
             })}
           >
-            <section className="flex justify-end sm:p-1 md:p-2 lg:p-2">
+            {/* <section className="flex justify-end sm:p-1 md:p-2 lg:p-2">
               <ConnectKitButton theme="midnight" showBalance />
-            </section>
+            </section> */}
             <section className="flex flex-col items-center w-full min-h-screen sm:p-8 md:p-12 lg:p-16">
               <section className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-24 items-center sm:mb-2 md:mb-6 lg:mb-10">
                 <section>

@@ -1,4 +1,4 @@
-import { useModal } from "connectkit";
+import { usePrivy } from "@privy-io/react-auth";
 import { useEffect, useState } from "react";
 import { Hex } from "viem";
 import {
@@ -23,7 +23,7 @@ export function useTransactionWrapper({
     chainId,
     hash,
   });
-  const { setOpen } = useModal();
+  const {ready} = usePrivy();
 
   useEffect(() => {
     if (status === "success") {
@@ -37,7 +37,7 @@ export function useTransactionWrapper({
     pending: initiated || (hash && status === "pending"),
     initiate: async (createTransaction: () => Promise<Hex>) => {
       if (!account.address) {
-        setOpen(true);
+        // ready = true;
         return;
       }
       try {

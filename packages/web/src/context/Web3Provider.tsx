@@ -1,17 +1,17 @@
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+// import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { base, mainnet, optimism, sepolia } from "viem/chains";
 import { alchemyEndpointCore } from "@/lib/alchemy/hooks";
-import { defaultWalletConnectProjectId } from "@/lib/constants";
+// import { defaultWalletConnectProjectId } from "@/lib/constants";
 import { useContext } from "react";
 import ConfigContext from "./ConfigContext";
 import {PrivyProvider} from '@privy-io/react-auth';
 
 const queryClient = new QueryClient();
 
-const config = createConfig(
-  getDefaultConfig({
+const config = createConfig({
+  // getDefaultConfig({
     chains: [mainnet, optimism, sepolia, base],
     transports: {
       [mainnet.id]: http(alchemyEndpointCore(mainnet.id)),
@@ -19,38 +19,30 @@ const config = createConfig(
       [sepolia.id]: http(alchemyEndpointCore(sepolia.id)),
       [base.id]: http(alchemyEndpointCore(base.id)),
     },
-    walletConnectProjectId:
-      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ??
-      defaultWalletConnectProjectId,
-    appName: "GroupOS",
-  })
-);
+    // walletConnectProjectId:
+    //   process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ??
+    //   defaultWalletConnectProjectId,
+    // appName: "GroupOS",
+  // })
+});
 
 export default function Web3Provider({ children }: { children: any }) {
   const { theme } = useContext(ConfigContext);
 
+  console.log('privy_key', process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "");
+  console.log('Type of privy_key:', typeof process.env.NEXT_PUBLIC_PRIVY_APP_ID);
+
+  if (!process.env.NEXT_PUBLIC_PRIVY_APP_ID) {
+    throw new Error('PRIVY_APP_ID environment variable is required');
+  }
+
+  console.log('hello privy')
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider
-          customTheme={{
-            "--ck-body-background": theme.colors.background,
-            "--ck-primary-button-color": theme.colors.primary,
-            "--ck-primary-button-background": theme.colors.highlightFaint,
-            "--ck-primary-button-hover-background": theme.colors.highlight,
-            "--ck-secondary-button-color": theme.colors.primary,
-            "--ck-secondary-button-background": theme.colors.highlightFaint,
-            "--ck-secondary-button-hover-background": theme.colors.highlight,
-            "--ck-spinner-color": theme.colors.action,
-            "--ck-body-color": theme.colors.primary,
-            "--ck-body-color-muted": theme.colors.secondary,
-            "--ck-tooltip-background": theme.colors.highlightFaint,
-            "--ck-focus-color": theme.colors.highlight,
-          }}
-        >
-          {/* it might not allow both connectkit and privy providers */}
           <PrivyProvider
-            appId={process.env.PRIVY_APP_ID}
+            appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? 'clxlu3b5m02rzy3kgvmcb4v71'}
             config={{
               // Customize Privy's appearance in your app
               appearance: {
@@ -66,7 +58,6 @@ export default function Web3Provider({ children }: { children: any }) {
           >
             {children}
           </PrivyProvider>
-        </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
